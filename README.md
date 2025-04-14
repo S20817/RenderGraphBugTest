@@ -35,7 +35,7 @@ C#およびShaderコードに問題がある箇所に`Problem`のコメントを
 ### 対象シーン： BugTestScene1
 - 不具合の再現手順: 
   - MainCameraに付いてる`BugTest1`コンポーネントの`RenderPassEvent`を`AfterRenderOpaques`~`AfterRenderingPostProcessing`の間の任意に設定
-  - `BugTest1`の`UsingCopyPassStep1`と`UsingCopyPassStep1`のチェックをつける
+  - `BugTest1`の`UsingCopyPassStep1`と`UsingCopyPassStep2`のチェックをつける
   - MacOS Editor, Windows Editor, iOSビルド, Androidビルドで不具合再現（他のプラットフームは未確認）
 - 実際の現象: 
   - `RenderPassEvent`が`AfterRenderOpaques`~`BeforeRenderingPostProcessing`の場合
@@ -43,7 +43,7 @@ C#およびShaderコードに問題がある箇所に`Problem`のコメントを
   - `RenderPassEvent`が`AfterRenderingPostProcessing`の場合
     - 画面の大半が真っ黒になり、正常描画時の色がモザイク状のノイズでフラッシュする
 - 期待される動作
-  - `BugTest1`の`UsingCopyPassStep1`と`UsingCopyPassStep1`のチェックを外した時と同じ描画結果
+  - `BugTest1`の`UsingCopyPassStep1`と`UsingCopyPassStep2`のチェックを外した時と同じ描画結果
 
 ### 対象シーン： BugTestScene2
 - 不具合の再現手順: 

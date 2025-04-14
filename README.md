@@ -30,3 +30,27 @@ MainCameraに付いてる`BugTest2`コンポーネントで設定の切り替え
 
 ### 補足
 C#およびShaderコードに問題がある箇所に`Problem`のコメントを付けてるので、`Problem`で検索すればすぐに見つけられます。
+
+## BugReport提出情報
+### 対象シーン： BugTestScene1
+- 不具合の再現手順: 
+  - MainCameraに付いてる`BugTest1`コンポーネントの`RenderPassEvent`を`AfterRenderOpaques`~`AfterRenderingPostProcessing`の間の任意に設定
+  - `BugTest1`の`UsingCopyPassStep1`と`UsingCopyPassStep1`のチェックをつける
+  - MacOS Editor, Windows Editor, iOSビルド, Androidビルドで不具合再現（他のプラットフームは未確認）
+- 実際の現象: 
+  - `RenderPassEvent`が`AfterRenderOpaques`~`BeforeRenderingPostProcessing`の場合
+    - 画面の大半がカメラのClearColorになり、正常描画時の色がモザイク状のノイズでフラッシュする
+  - `RenderPassEvent`が`AfterRenderingPostProcessing`の場合
+    - 画面の大半が真っ黒になり、正常描画時の色がモザイク状のノイズでフラッシュする
+- 期待される動作
+  - `BugTest1`の`UsingCopyPassStep1`と`UsingCopyPassStep1`のチェックを外した時と同じ描画結果
+
+### 対象シーン： BugTestScene2
+- 不具合の再現手順: 
+  - MainCameraに付いてる`BugTest2`コンポーネントの`RenderPassEvent`を`AfterRenderingPostProcessing`に設定
+  - `BugTest2`の`ConvertUsingFrameBufferFetch`と`RevertUsingFrameBufferFetch`のチェックをつける
+  - MacOS Editor, Windows Editor, iOSビルド, Androidビルドで不具合再現（他のプラットフームは未確認）
+- 実際の現象: 
+  - CustomUI部分（青色の半透明板）以外、真っ黒になる（一部Android端末では、真っ黒ではなく、暗い赤色になる）
+- 期待される動作
+  - `BugTest2`の`ConvertUsingFrameBufferFetch`と`RevertUsingFrameBufferFetch`のチェックを外した時と同じ描画結果
